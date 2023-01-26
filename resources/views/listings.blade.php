@@ -1,23 +1,26 @@
 @extends('layout')
 
 @section('content')
+
+@include('partials._hero')
+
+@include('partials._search')
     
 <div class="lg:grid lg:grid-cols-2 gap-4 space-y-5 md:space-y-0 mx-4">
-
 
 @unless(count($listings) == 0)
 
 @foreach($listings as $listing)
     <div class="bg-gray-50 border border-gray-200 rounded p-6">
         <div class="flex">
-            <img class="hidden w-48 mr-6 md:block" src="images/no-image.png" alt="">
+            <img class="hidden w-48 mr-6 md:block" src="{{asset('images/no-image.png')}}" alt="">
             <div>
                 <h3 class="text-2xl">
-                    <a href="show.html">{{$listing['title']}}</a>
+                    <a href="/listing/{{$listing->id}}">{{$listing->title}}</a>
                 </h3>
-                <div class="text-xl font-bold mb-4">{{$listing['company']}}</div>
+                <div class="text-xl font-bold mb-4">{{$listing->company}}</div>
                 <ul class="flex">
-                    @foreach(explode(',', $listing['tags']) as $tag)
+                    @foreach(explode(',', $listing->tags) as $tag)
                         <li class="flex item-center justify-center bg-black text-white rounded-xl py-1 px-3 mr-2 text-xs">
                             <a href="#">{{$tag}}</a>
                         </li>
@@ -25,7 +28,7 @@
                 </ul>
                 <div class="text-lg mt-4">
                     <i class="fa-solid fa-location-dot">
-                        {{$listing['location']}}
+                        {{$listing->location}}
                     </i>
                 </div>
             </div>
